@@ -8,9 +8,8 @@ class QuestionsSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300, // fixes the height of the SizedBox
+      height: 300, 
       child: SingleChildScrollView(
-        // makes the contents scrollable (if exceeding height)
         child: Column(
           children: summaryData.map((data) {
             final userAns = data['user_answer'] as String;

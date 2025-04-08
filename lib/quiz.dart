@@ -13,26 +13,12 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  // final List<String> selectedAnswers = []; // if 'final' used we can't restart with an empty list
-  List<String> selectedAnswers =
-      []; // now of type 'var' -> so can be reassgined
-
-  // var activeScreen = const StartScreen(); // will give error, as type of the variable will be more specific
-  // Widget activeScreen = const StartScreen(switchScreen); // use this
-  // Widget? activeScreen;
+  List<String> selectedAnswers = [];
 
   var activeScreen = 'start-screen';
 
-  // @override
-  // void initState() {
-  //   activeScreen = StartScreen(switchScreen);
-  //   activeScreen = 'questions-screen';
-  //   super.initState();
-  // }
-
   void switchScreen() {
     setState(() {
-      // activeScreen = const QuestionsScreen();
       activeScreen = 'questions-screen';
     });
   }
@@ -55,9 +41,6 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(context) {
-    // final screenWidget = activeScreen == 'start-screen'
-    //     ? StartScreen(switchScreen)
-    //     : const QuestionsScreen();
     Widget screenWidget = StartScreen(switchScreen);
     if (activeScreen == 'questions-screen') {
       screenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);

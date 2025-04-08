@@ -48,25 +48,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
             const SizedBox(height: 30),
 
-            // list.map -> applies the function to every element in the list nd returns a new list with the transformed elements
-            // Note: this does not change the original list
-
-            // Spreading values (...) - pulls all the values inside the list nd places them as comma seperated values
-
             ...currentQuestion.getShuffledAnswers().map((item) {
               return AnswerButton(
                 ansText: item,
                 onTap: () {
-                  answerQuestion(item); // if passing function as a callback (nd not immediately calling it) -> pass pointer to it
-                  // in this case too function not passed immediately. The anonymous function is forwarded to onTap;
-                  // this function will be executed only when the anonymous function is trigerred inside the button
+                  answerQuestion(item); 
                 }, 
               );
             })
-            // AnswerButton(
-            //   ansText: currentQuestion.answers[0],
-            //   onTap: () {},
-            // ),
           ],
         ),
       ),

@@ -38,7 +38,7 @@ class ResultsScreen extends StatelessWidget {
       // does not change original summaryData
       return data['answer'] ==
           data[
-              'user_answer']; // filters the list, keeping only those elements which satisfy the property
+              'user_answer']; 
     }).length;
 
     return SizedBox(

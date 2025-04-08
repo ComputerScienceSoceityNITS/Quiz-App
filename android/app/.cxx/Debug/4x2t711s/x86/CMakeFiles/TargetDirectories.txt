@@ -1,0 +1,2 @@
+/Users/upamanyujitphukan/Desktop/Flutter_projects/quiz_app/android/app/.cxx/Debug/4x2t711s/x86/CMakeFiles/edit_cache.dir
+/Users/upamanyujitphukan/Desktop/Flutter_projects/quiz_app/android/app/.cxx/Debug/4x2t711s/x86/CMakeFiles/rebuild_cache.dir

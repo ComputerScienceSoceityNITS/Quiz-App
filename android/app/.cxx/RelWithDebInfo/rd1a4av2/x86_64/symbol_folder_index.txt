@@ -1,0 +1,1 @@
+C:\dev\practice\Quiz-App\build\app\intermediates\cxx\RelWithDebInfo\rd1a4av2\obj\x86_64

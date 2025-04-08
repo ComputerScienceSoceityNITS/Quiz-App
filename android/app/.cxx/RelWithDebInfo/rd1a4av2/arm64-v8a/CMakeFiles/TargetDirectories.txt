@@ -1,0 +1,2 @@
+C:/dev/practice/Quiz-App/android/app/.cxx/RelWithDebInfo/rd1a4av2/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/dev/practice/Quiz-App/android/app/.cxx/RelWithDebInfo/rd1a4av2/arm64-v8a/CMakeFiles/rebuild_cache.dir

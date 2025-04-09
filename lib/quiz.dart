@@ -32,6 +32,10 @@ class _QuizState extends State<Quiz> {
     }
   }
 
+  void unchooseAnswer() {
+    selectedAnswers.removeLast();
+  }
+
   void restartQuiz() {
     setState(() {
       selectedAnswers = [];
@@ -43,7 +47,10 @@ class _QuizState extends State<Quiz> {
   Widget build(context) {
     Widget screenWidget = StartScreen(switchScreen);
     if (activeScreen == 'questions-screen') {
-      screenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+        onBack: unchooseAnswer,
+      );
     }
     if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(

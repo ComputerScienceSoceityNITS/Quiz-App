@@ -5,10 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen(
-      {super.key, required this.onSelectAnswer, required this.onBack});
+      {super.key,
+      required this.onSelectAnswer,
+      required this.onBack,
+      required this.chosenAnswers});
 
   final void Function(String answer) onSelectAnswer;
   final void Function() onBack;
+  final List<String> chosenAnswers;
 
   @override
   State<QuestionsScreen> createState() {
@@ -23,6 +27,28 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(context) {
     final currentQuestion = questions[currentQuestionIndex];
 
+    List<Map<String, Object>> getSummaryData() {
+      final List<Map<String, Object>> summary = [];
+
+      for (var i = 0; i < widget.chosenAnswers.length; i++) {
+        summary.add(
+          {
+            'question_index': i,
+            'question': questions[i].text,
+            'answer': questions[i].answers[0],
+            'user_answer': widget.chosenAnswers[i],
+          },
+        );
+      }
+      return summary;
+    }
+
+    final summaryData = getSummaryData();
+    final numTotalQs = questions.length;
+    final numCorrectQs = summaryData.where((data) {
+      // does not change original summaryData
+      return data['answer'] == data['user_answer'];
+    }).length;
     void answerQuestion(String selectedAnswer) {
       widget.onSelectAnswer(selectedAnswer);
       setState(() {
@@ -39,6 +65,18 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
     return Stack(
       children: [
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Text(
+            'Score: ${numCorrectQs}${currentQuestionIndex > 0 ? ' / $currentQuestionIndex' : ''}',
+            style: GoogleFonts.lato(
+              color: const Color.fromARGB(255, 223, 189, 237),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
         Container(
           margin: const EdgeInsets.all(40),
           child: Column(

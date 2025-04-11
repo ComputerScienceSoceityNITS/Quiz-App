@@ -50,6 +50,7 @@ class _QuizState extends State<Quiz> {
       screenWidget = QuestionsScreen(
         onSelectAnswer: chooseAnswer,
         onBack: unchooseAnswer,
+        chosenAnswers: selectedAnswers,
       );
     }
     if (activeScreen == 'results-screen') {

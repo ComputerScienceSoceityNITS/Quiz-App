@@ -4,18 +4,23 @@ const questions = [
   QuizQuestions(
     'What are the main building blocks of Flutter UIs?',
     [
-      'Widgets', // keep the correct ans at the first place (internally)
+      'Widgets',
       'Components',
       'Blocks',
       'Functions',
     ],
+    'Easy',
   ),
-  QuizQuestions('How are Flutter UIs built?', [
-    'By combining widgets in code',
-    'By combining widgets in a visual editor',
-    'By defining widgets in config files',
-    'By using XCode for iOS and Android Studio for Android',
-  ]),
+  QuizQuestions(
+    'How are Flutter UIs built?',
+    [
+      'By combining widgets in code',
+      'By combining widgets in a visual editor',
+      'By defining widgets in config files',
+      'By using XCode for iOS and Android Studio for Android',
+    ],
+    'Easy',
+  ),
   QuizQuestions(
     'What\'s the purpose of a StatefulWidget?',
     [
@@ -24,6 +29,7 @@ const questions = [
       'Ignore data changes',
       'Render UI that does not depend on data',
     ],
+    'Medium',
   ),
   QuizQuestions(
     'Which widget should you try to use more often: StatelessWidget or StatefulWidget?',
@@ -33,6 +39,7 @@ const questions = [
       'Both are equally good',
       'None of the above',
     ],
+    'Medium',
   ),
   QuizQuestions(
     'What happens if you change data in a StatelessWidget?',
@@ -42,6 +49,7 @@ const questions = [
       'The closest StatefulWidget is updated',
       'Any nested StatefulWidgets are updated',
     ],
+    'Hard',
   ),
   QuizQuestions(
     'How should you update data inside of StatefulWidgets?',
@@ -51,5 +59,6 @@ const questions = [
       'By calling updateUI()',
       'By calling updateState()',
     ],
+    'Hard',
   ),
 ];

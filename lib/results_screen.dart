@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/models/quiz_questions.dart';
 import 'package:quiz_app/questions_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
@@ -8,10 +8,12 @@ class ResultsScreen extends StatelessWidget {
     super.key,
     required this.chosenAnswers,
     required this.onRestart,
+    required this.questions, // ✅ Pass filtered questions
   });
 
   final void Function() onRestart;
   final List<String> chosenAnswers;
+  final List<QuizQuestions> questions;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -35,10 +37,7 @@ class ResultsScreen extends StatelessWidget {
     final summaryData = getSummaryData();
     final numTotalQs = questions.length;
     final numCorrectQs = summaryData.where((data) {
-      // does not change original summaryData
-      return data['answer'] ==
-          data[
-              'user_answer']; 
+      return data['answer'] == data['user_answer'];
     }).length;
 
     return SizedBox(
@@ -58,15 +57,11 @@ class ResultsScreen extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             Expanded(
               child: QuestionsSummary(summaryData: summaryData),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             TextButton.icon(
               onPressed: onRestart,
               style: TextButton.styleFrom(

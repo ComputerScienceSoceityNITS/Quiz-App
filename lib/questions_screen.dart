@@ -45,7 +45,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     }
 
     final summaryData = getSummaryData();
-    final numTotalQs = widget.questions.length;
     final numCorrectQs = summaryData.where((data) {
       return data['answer'] == data['user_answer'];
     }).length;
@@ -69,7 +68,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         Padding(
           padding: const EdgeInsets.all(24.0),
           child: Text(
-            'Score: ${numCorrectQs}${currentQuestionIndex > 0 ? ' / $currentQuestionIndex' : ''}',
+            'Score: $numCorrectQs${currentQuestionIndex > 0 ? ' / $currentQuestionIndex' : ''}',
             style: GoogleFonts.lato(
               color: const Color.fromARGB(255, 223, 189, 237),
               fontSize: 20,

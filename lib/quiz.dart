@@ -7,11 +7,8 @@ import 'package:quiz_app/start_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
-
   @override
-  State<Quiz> createState() {
-    return _QuizState();
-  }
+  State<Quiz> createState() => _QuizState();
 }
 
 class _QuizState extends State<Quiz> {
@@ -21,50 +18,66 @@ class _QuizState extends State<Quiz> {
 
   var activeScreen = 'start-screen';
 
+  // Track start times and total durations per question
+  Map<int, Duration> questionTimes = {};
+  DateTime? questionStartTime;
+  int currentQuestionIndex = 0;
+
   void switchScreen(List<String> difficulties) {
-    final matchedQuestions = questions.where((q) {
-      return difficulties.contains(q.difficulty);
-    }).toList();
-
-    if (matchedQuestions.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content:
-              Text('No questions available for the selected difficulties.'),
-        ),
-      );
-      return;
-    }
-
     setState(() {
       selectedDifficulties = difficulties;
-      filteredQuestions = matchedQuestions;
+      filteredQuestions = questions
+          .where((q) => selectedDifficulties.contains(q.difficulty))
+          .toList();
+      selectedAnswers = [];
+      questionTimes.clear();
+      currentQuestionIndex = 0;
       activeScreen = 'questions-screen';
+      questionStartTime = DateTime.now();
     });
   }
 
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer);
+    final now = DateTime.now();
+    final timeSpent = now.difference(questionStartTime!);
 
+    // Update time spent on current question
+    questionTimes[currentQuestionIndex] =
+        (questionTimes[currentQuestionIndex] ?? Duration.zero) + timeSpent;
+
+    selectedAnswers.add(answer);
     if (selectedAnswers.length == filteredQuestions.length) {
       setState(() {
         activeScreen = 'results-screen';
+      });
+    } else {
+      setState(() {
+        currentQuestionIndex++;
+        questionStartTime = DateTime.now();
       });
     }
   }
 
   void unchooseAnswer() {
-    if (selectedAnswers.isNotEmpty) {
-      selectedAnswers.removeLast();
-    }
+    final now = DateTime.now();
+    final timeSpent = now.difference(questionStartTime!);
+
+    questionTimes[currentQuestionIndex] =
+        (questionTimes[currentQuestionIndex] ?? Duration.zero) + timeSpent;
+
+    selectedAnswers.removeLast();
+    setState(() {
+      currentQuestionIndex--;
+      questionStartTime = DateTime.now();
+    });
   }
 
   void restartQuiz() {
     setState(() {
       selectedAnswers = [];
-      selectedDifficulties = [];
-      filteredQuestions = [];
       activeScreen = 'start-screen';
+      currentQuestionIndex = 0;
+      questionTimes.clear();
     });
   }
 
@@ -85,8 +98,8 @@ class _QuizState extends State<Quiz> {
       screenWidget = ResultsScreen(
         chosenAnswers: selectedAnswers,
         onRestart: restartQuiz,
-        questions:
-            filteredQuestions, // 👈 this should match what you used in QuestionsScreen
+        questionTimes: questionTimes,
+        filteredQuestions: filteredQuestions,
       );
     }
 
